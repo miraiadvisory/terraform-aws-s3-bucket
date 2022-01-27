@@ -22,6 +22,12 @@ variable "attach_deny_insecure_transport_policy" {
   default     = false
 }
 
+variable "attach_require_latest_tls_policy" {
+  description = "Controls if S3 bucket should require the latest version of TLS"
+  type        = bool
+  default     = false
+}
+
 variable "attach_policy" {
   description = "Controls if S3 bucket should have bucket policy attached (set to `true` to use value of `policy` as bucket policy)"
   type        = bool
@@ -167,7 +173,7 @@ variable "control_object_ownership" {
 }
 
 variable "object_ownership" {
-  description = "Object ownership. Valid values: BucketOwnerPreferred or ObjectWriter. 'BucketOwnerPreferred': Objects uploaded to the bucket change ownership to the bucket owner if the objects are uploaded with the bucket-owner-full-control canned ACL. 'ObjectWriter': The uploading account will own the object if the object is uploaded with the bucket-owner-full-control canned ACL."
+  description = "Object ownership. Valid values: BucketOwnerEnforced, BucketOwnerPreferred or ObjectWriter. 'BucketOwnerEnforced': ACLs are disabled, and the bucket owner automatically owns and has full control over every object in the bucket. 'BucketOwnerPreferred': Objects uploaded to the bucket change ownership to the bucket owner if the objects are uploaded with the bucket-owner-full-control canned ACL. 'ObjectWriter': The uploading account will own the object if the object is uploaded with the bucket-owner-full-control canned ACL."
   type        = string
   default     = "ObjectWriter"
 }

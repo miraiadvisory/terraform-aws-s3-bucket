@@ -4,6 +4,8 @@ locals {
 
 data "aws_canonical_user_id" "current" {}
 
+data "aws_cloudfront_log_delivery_canonical_user_id" "cloudfront" {}
+
 resource "random_pet" "this" {
   length = 2
 }
@@ -57,6 +59,7 @@ module "log_bucket" {
   attach_elb_log_delivery_policy        = true
   attach_lb_log_delivery_policy         = true
   attach_deny_insecure_transport_policy = true
+  attach_require_latest_tls_policy      = true
 }
 
 module "cloudfront_log_bucket" {
@@ -71,8 +74,7 @@ module "cloudfront_log_bucket" {
     }, {
     type        = "CanonicalUser"
     permissions = ["FULL_CONTROL"]
-    id          = "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0"
-    # Ref. https://github.com/terraform-providers/terraform-provider-aws/issues/12512
+    id          = data.aws_cloudfront_log_delivery_canonical_user_id.cloudfront.id
     # Ref. https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html
   }]
   force_destroy = true
@@ -89,6 +91,7 @@ module "s3_bucket" {
   policy        = data.aws_iam_policy_document.bucket_policy.json
 
   attach_deny_insecure_transport_policy = true
+  attach_require_latest_tls_policy      = true
 
   tags = {
     Owner = "Anton"

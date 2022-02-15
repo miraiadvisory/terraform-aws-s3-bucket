@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+### [2.14.1](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v2.14.0...v2.14.1) (2022-02-10)
+
+
+### Bug Fixes
+
+* Pin version to v3 due to number of breaking changes in v4 ([#136](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/issues/136)) ([7dd9a65](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/7dd9a655e5654291e29332b6f43c8065ad60a11b))
+
+## [2.14.0](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v2.13.0...v2.14.0) (2022-02-10)
+
+
+### Features
+
+* Added source_account for lambda_permission resource ([#135](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/issues/135)) ([e9f0fcc](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/e9f0fcc5aaa90d19fd93800fc9bb99b270546f13))
+
+
+### Bug Fixes
+
+* Changelog duplicate header ([#133](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/issues/133)) ([8d4d28e](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/8d4d28e051cbe48356f63c05ba678d2750c94b8d))
+
 ## [2.13.0](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v2.12.0...v2.13.0) (2022-01-15)
 
 
@@ -22,10 +41,6 @@ All notable changes to this project will be documented in this file.
 ### Bug Fixes
 
 * update CI/CD process to align auto-release workflow configs ([#118](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/issues/118)) ([31d76f9](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/31d76f933b05848be9aaf25befd43966e4065472))
-
-# Changelog
-
-All notable changes to this project will be documented in this file
 
 ## [2.11.1](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v2.11.0...v2.11.1) (2021-11-07)
 

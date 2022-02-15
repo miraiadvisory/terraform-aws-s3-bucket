@@ -64,6 +64,7 @@ resource "aws_lambda_permission" "allow" {
   qualifier           = lookup(each.value, "qualifier", null)
   principal           = "s3.amazonaws.com"
   source_arn          = local.bucket_arn
+  source_account      = lookup(each.value, "source_account", null)
 }
 
 # SQS Queue
@@ -74,7 +75,7 @@ data "aws_arn" "queue" {
 }
 
 data "aws_iam_policy_document" "sqs" {
-  for_each = var.create_sqs_policy ? var.sqs_notifications : tomap({})
+  for_each = { for k, v in var.sqs_notifications : k => v if var.create_sqs_policy }
 
   statement {
     sid = "AllowSQSS3BucketNotification"
@@ -101,7 +102,7 @@ data "aws_iam_policy_document" "sqs" {
 }
 
 resource "aws_sqs_queue_policy" "allow" {
-  for_each = var.create_sqs_policy ? var.sqs_notifications : tomap({})
+  for_each = { for k, v in var.sqs_notifications : k => v if var.create_sqs_policy }
 
   queue_url = lookup(each.value, "queue_id", lookup(local.queue_ids, each.key, null))
   policy    = data.aws_iam_policy_document.sqs[each.key].json
@@ -109,7 +110,7 @@ resource "aws_sqs_queue_policy" "allow" {
 
 # SNS Topic
 data "aws_iam_policy_document" "sns" {
-  for_each = var.create_sns_policy ? var.sns_notifications : tomap({})
+  for_each = { for k, v in var.sns_notifications : k => v if var.create_sns_policy }
 
   statement {
     sid = "AllowSNSS3BucketNotification"
@@ -136,7 +137,7 @@ data "aws_iam_policy_document" "sns" {
 }
 
 resource "aws_sns_topic_policy" "allow" {
-  for_each = var.create_sns_policy ? var.sns_notifications : tomap({})
+  for_each = { for k, v in var.sns_notifications : k => v if var.create_sns_policy }
 
   arn    = each.value.topic_arn
   policy = data.aws_iam_policy_document.sns[each.key].json

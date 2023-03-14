@@ -40,6 +40,18 @@ variable "attach_public_policy" {
   default     = true
 }
 
+variable "attach_inventory_destination_policy" {
+  description = "Controls if S3 bucket should have bucket inventory destination policy attached."
+  type        = bool
+  default     = false
+}
+
+variable "attach_analytics_destination_policy" {
+  description = "Controls if S3 bucket should have bucket analytics destination policy attached."
+  type        = bool
+  default     = false
+}
+
 variable "bucket" {
   description = "(Optional, Forces new resource) The name of the bucket. If omitted, Terraform will assign a random, unique name."
   type        = string
@@ -148,10 +160,70 @@ variable "server_side_encryption_configuration" {
   default     = {}
 }
 
+variable "intelligent_tiering" {
+  description = "Map containing intelligent tiering configuration."
+  type        = any
+  default     = {}
+}
+
 variable "object_lock_configuration" {
   description = "Map containing S3 object locking configuration."
   type        = any
   default     = {}
+}
+
+variable "metric_configuration" {
+  description = "Map containing bucket metric configuration."
+  type        = any
+  default     = []
+}
+
+variable "inventory_configuration" {
+  description = "Map containing S3 inventory configuration."
+  type        = any
+  default     = {}
+}
+
+variable "inventory_source_account_id" {
+  description = "The inventory source account id."
+  type        = string
+  default     = null
+}
+
+variable "inventory_source_bucket_arn" {
+  description = "The inventory source bucket ARN."
+  type        = string
+  default     = null
+}
+
+variable "inventory_self_source_destination" {
+  description = "Whether or not the inventory source bucket is also the destination bucket."
+  type        = bool
+  default     = false
+}
+
+variable "analytics_configuration" {
+  description = "Map containing bucket analytics configuration."
+  type        = any
+  default     = {}
+}
+
+variable "analytics_source_account_id" {
+  description = "The analytics source account id."
+  type        = string
+  default     = null
+}
+
+variable "analytics_source_bucket_arn" {
+  description = "The analytics source bucket ARN."
+  type        = string
+  default     = null
+}
+
+variable "analytics_self_source_destination" {
+  description = "Whether or not the analytics source bucket is also the destination bucket."
+  type        = bool
+  default     = false
 }
 
 variable "object_lock_enabled" {

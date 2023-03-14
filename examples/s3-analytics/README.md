@@ -1,18 +1,8 @@
-# S3 bucket notifications to Lambda functions, SQS queues, and SNS topics
+# S3 bucket Analytics Configurations
 
-Configuration in this directory creates S3 bucket notifications to all supported destinations.
+Configuration in this directory creates an S3 bucket with several analytics configurations including a different destination for analytics reports generated.
 
-## Usage
-
-To run this example you need to execute:
-
-```bash
-$ terraform init
-$ terraform plan
-$ terraform apply
-```
-
-Note that this example may create resources which cost money. Run `terraform destroy` when you don't need these resources.
+Please check [complete example](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/tree/master/examples/complete) to see all other features supported by this module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -21,7 +11,6 @@ Note that this example may create resources which cost money. Run `terraform des
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9 |
-| <a name="requirement_null"></a> [null](#requirement\_null) | >= 2.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.0 |
 
 ## Providers
@@ -29,29 +18,23 @@ Note that this example may create resources which cost money. Run `terraform des
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9 |
-| <a name="provider_null"></a> [null](#provider\_null) | >= 2.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 2.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_all_notifications"></a> [all\_notifications](#module\_all\_notifications) | ../../modules/notification | n/a |
-| <a name="module_lambda_function1"></a> [lambda\_function1](#module\_lambda\_function1) | terraform-aws-modules/lambda/aws | ~> 3.0 |
-| <a name="module_lambda_function2"></a> [lambda\_function2](#module\_lambda\_function2) | terraform-aws-modules/lambda/aws | ~> 3.0 |
-| <a name="module_s3_bucket"></a> [s3\_bucket](#module\_s3\_bucket) | ../../ | n/a |
-| <a name="module_sns_topic1"></a> [sns\_topic1](#module\_sns\_topic1) | terraform-aws-modules/sns/aws | ~> 3.0 |
-| <a name="module_sns_topic2"></a> [sns\_topic2](#module\_sns\_topic2) | terraform-aws-modules/sns/aws | ~> 3.0 |
+| <a name="module_analytics_and_inventory_destination_bucket"></a> [analytics\_and\_inventory\_destination\_bucket](#module\_analytics\_and\_inventory\_destination\_bucket) | ../../ | n/a |
+| <a name="module_analytics_configuration_bucket"></a> [analytics\_configuration\_bucket](#module\_analytics\_configuration\_bucket) | ../../ | n/a |
+| <a name="module_analytics_destination_bucket"></a> [analytics\_destination\_bucket](#module\_analytics\_destination\_bucket) | ../../ | n/a |
+| <a name="module_inventory_source_bucket"></a> [inventory\_source\_bucket](#module\_inventory\_source\_bucket) | ../.. | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_sqs_queue.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) | resource |
-| [aws_sqs_queue_policy.allow_external](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy) | resource |
-| [null_resource.download_package](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [random_pet.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) | resource |
-| [aws_iam_policy_document.sqs_external](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs
 

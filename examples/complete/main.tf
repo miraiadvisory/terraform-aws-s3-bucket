@@ -2,7 +2,6 @@ provider "aws" {
   region = local.region
 
   # Make it faster by skipping something
-  skip_get_ec2_platforms      = true
   skip_metadata_api_check     = true
   skip_region_validation      = true
   skip_credentials_validation = true
@@ -13,7 +12,6 @@ locals {
   bucket_name = "s3-bucket-${random_pet.this.id}"
   region      = "eu-west-1"
 }
-
 
 data "aws_caller_identity" "current" {}
 
@@ -95,7 +93,7 @@ module "cloudfront_log_bucket" {
   ]
 
   owner = {
-    id = "457414f555e45c2e6fe1069d1a527a90d6337e1acb012ba99f3833859b23d338"
+    id = data.aws_canonical_user_id.current.id
   }
 
   force_destroy = true
@@ -292,5 +290,59 @@ module "s3_bucket" {
         days = 300
       }
     },
+  ]
+
+  intelligent_tiering = {
+    general = {
+      status = "Enabled"
+      filter = {
+        prefix = "/"
+        tags = {
+          Environment = "dev"
+        }
+      }
+      tiering = {
+        ARCHIVE_ACCESS = {
+          days = 180
+        }
+      }
+    },
+    documents = {
+      status = false
+      filter = {
+        prefix = "documents/"
+      }
+      tiering = {
+        ARCHIVE_ACCESS = {
+          days = 125
+        }
+        DEEP_ARCHIVE_ACCESS = {
+          days = 200
+        }
+      }
+    }
+  }
+
+  metric_configuration = [
+    {
+      name = "documents"
+      filter = {
+        prefix = "documents/"
+        tags = {
+          priority = "high"
+        }
+      }
+    },
+    {
+      name = "other"
+      filter = {
+        tags = {
+          production = "true"
+        }
+      }
+    },
+    {
+      name = "all"
+    }
   ]
 }

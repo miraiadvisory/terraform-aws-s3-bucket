@@ -14,20 +14,20 @@ $ terraform apply
 
 Note that this example may create resources which cost money. Run `terraform destroy` when you don't need these resources.
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.70 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.70 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 2.0 |
 
 ## Modules
@@ -37,6 +37,7 @@ Note that this example may create resources which cost money. Run `terraform des
 | <a name="module_object"></a> [object](#module\_object) | ../../modules/object | n/a |
 | <a name="module_object_complete"></a> [object\_complete](#module\_object\_complete) | ../../modules/object | n/a |
 | <a name="module_object_locked"></a> [object\_locked](#module\_object\_locked) | ../../modules/object | n/a |
+| <a name="module_object_with_override_default_tags"></a> [object\_with\_override\_default\_tags](#module\_object\_with\_override\_default\_tags) | ../../modules/object | n/a |
 | <a name="module_s3_bucket"></a> [s3\_bucket](#module\_s3\_bucket) | ../../ | n/a |
 | <a name="module_s3_bucket_with_object_lock"></a> [s3\_bucket\_with\_object\_lock](#module\_s3\_bucket\_with\_object\_lock) | ../../ | n/a |
 
@@ -60,4 +61,4 @@ No inputs.
 | <a name="output_s3_object_etag"></a> [s3\_object\_etag](#output\_s3\_object\_etag) | The ETag generated for the object (an MD5 sum of the object content). |
 | <a name="output_s3_object_id"></a> [s3\_object\_id](#output\_s3\_object\_id) | The key of S3 object |
 | <a name="output_s3_object_version_id"></a> [s3\_object\_version\_id](#output\_s3\_object\_version\_id) | A unique version ID value for the object, if bucket versioning is enabled. |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

@@ -2,6 +2,68 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.2.1](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v4.2.0...v4.2.1) (2024-10-11)
+
+
+### Bug Fixes
+
+* Update CI workflow versions to latest ([#293](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/issues/293)) ([522fcff](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/522fcffdf90b1325501e021548962f41978aeefc))
+
+## [4.2.0](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v4.1.2...v4.2.0) (2024-10-06)
+
+
+### Features
+
+* Support `transition_default_minimum_object_size` ([#290](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/issues/290)) ([f6fda8c](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/f6fda8c746d2b6951ae59d7a20d33dbaafe0d70f))
+
+## [4.1.2](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v4.1.1...v4.1.2) (2024-04-16)
+
+
+### Bug Fixes
+
+* Typo in description of `access_log_delivery_policy_source_buckets` variable ([#278](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/issues/278)) ([b4a5347](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/b4a5347feb4120a6872c4aade8e50585aeb86e7c))
+
+## [4.1.1](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v4.1.0...v4.1.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* Update CI workflow versions to remove deprecated runtime warnings ([#274](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/issues/274)) ([ca372ac](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/ca372acbc82e6f8e16ff810a9f1b4a5ae52230b5))
+
+## [4.1.0](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v4.0.1...v4.1.0) (2024-01-26)
+
+
+### Features
+
+* Allow override of the default tags override ([#261](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/issues/261)) ([f9e1740](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/f9e1740cafe597f2764a0d2ee7dbd34a0e19753c))
+
+### [4.0.1](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v4.0.0...v4.0.1) (2024-01-13)
+
+
+### Bug Fixes
+
+* Fixed routing rule condition ([#270](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/issues/270)) ([116f79b](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/116f79be982b02c3f14dd92a8694d214dc81b3f5))
+
+## [4.0.0](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v3.15.2...v4.0.0) (2024-01-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* upd versions.tf to require >= 5.27
+
+### Features
+
+* **logging:** change logging variable type to any ([2c45bde](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/2c45bdeb097cac250c395ed6dfb7c091e5f54abd))
+* **logging:** Date based partitioning for access-logs ([59f65af](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/59f65afbc5050a6c651b51d41180f64de71478dc))
+* upd versions.tf to require >= 5.27 ([7a4aab6](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/7a4aab6d27a5d09404f517a5ef419898e0ce2281))
+
+### [3.15.2](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v3.15.1...v3.15.2) (2024-01-12)
+
+
+### Bug Fixes
+
+* Add China regions to elb_service_accounts ([#264](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/issues/264)) ([c6870d5](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/commit/c6870d5187eaa83d089ebeb7d1e750217da4ec89))
+
 ### [3.15.1](https://github.com/terraform-aws-modules/terraform-aws-s3-bucket/compare/v3.15.0...v3.15.1) (2023-08-26)
 
 

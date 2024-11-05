@@ -150,12 +150,12 @@ variable "versioning" {
 
 variable "logging" {
   description = "Map containing access bucket logging configuration."
-  type        = map(string)
+  type        = any
   default     = {}
 }
 
 variable "access_log_delivery_policy_source_buckets" {
-  description = "(Optional) List of S3 bucket ARNs wich should be allowed to deliver access logs to this bucket."
+  description = "(Optional) List of S3 bucket ARNs which should be allowed to deliver access logs to this bucket."
   type        = list(string)
   default     = []
 }
@@ -180,6 +180,12 @@ variable "owner" {
 
 variable "expected_bucket_owner" {
   description = "The account ID of the expected bucket owner"
+  type        = string
+  default     = null
+}
+
+variable "transition_default_minimum_object_size" {
+  description = "The default minimum object size behavior applied to the lifecycle configuration. Valid values: all_storage_classes_128K (default), varies_by_storage_class"
   type        = string
   default     = null
 }

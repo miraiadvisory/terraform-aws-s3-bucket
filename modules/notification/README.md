@@ -2,12 +2,12 @@
 
 Creates S3 bucket notification resource with all supported types of deliveries: AWS Lambda, SQS Queue, SNS Topic.
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.74 |
 
 ## Providers
@@ -52,4 +52,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_s3_bucket_notification_id"></a> [s3\_bucket\_notification\_id](#output\_s3\_bucket\_notification\_id) | ID of S3 bucket |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

@@ -60,6 +60,27 @@ data "aws_iam_policy_document" "bucket_policy" {
       "arn:aws:s3:::${local.bucket_name}",
     ]
   }
+
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_role.this.arn]
+    }
+
+    actions = [
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      "_S3_BUCKET_ARN_",
+    ]
+
+    condition {
+      test     = "StringNotEquals"
+      variable = "aws:PrincipalAccount"
+      values   = ["_AWS_ACCOUNT_ID_"]
+    }
+  }
 }
 
 module "log_bucket" {
@@ -73,11 +94,15 @@ module "log_bucket" {
   attach_elb_log_delivery_policy        = true
   attach_lb_log_delivery_policy         = true
   attach_access_log_delivery_policy     = true
+  attach_cloudtrail_log_delivery_policy = true
   attach_deny_insecure_transport_policy = true
   attach_require_latest_tls_policy      = true
+  attach_waf_log_delivery_policy        = true
 
-  access_log_delivery_policy_source_accounts = [data.aws_caller_identity.current.account_id]
-  access_log_delivery_policy_source_buckets  = ["arn:aws:s3:::${local.bucket_name}"]
+  access_log_delivery_policy_source_accounts      = [data.aws_caller_identity.current.account_id]
+  access_log_delivery_policy_source_buckets       = ["arn:aws:s3:::${local.bucket_name}"]
+  access_log_delivery_policy_source_organizations = ["o-123456"]
+  lb_log_delivery_policy_source_organizations     = ["o-123456"]
 }
 
 module "cloudfront_log_bucket" {
@@ -139,14 +164,15 @@ module "s3_bucket" {
   }
 
   # Bucket policies
-  attach_policy                            = true
-  policy                                   = data.aws_iam_policy_document.bucket_policy.json
-  attach_deny_insecure_transport_policy    = true
-  attach_require_latest_tls_policy         = true
-  attach_deny_incorrect_encryption_headers = true
-  attach_deny_incorrect_kms_key_sse        = true
-  allowed_kms_key_arn                      = aws_kms_key.objects.arn
-  attach_deny_unencrypted_object_uploads   = true
+  attach_policy                             = true
+  policy                                    = data.aws_iam_policy_document.bucket_policy.json
+  attach_deny_insecure_transport_policy     = true
+  attach_require_latest_tls_policy          = true
+  attach_deny_incorrect_encryption_headers  = true
+  attach_deny_incorrect_kms_key_sse         = true
+  allowed_kms_key_arn                       = aws_kms_key.objects.arn
+  attach_deny_unencrypted_object_uploads    = true
+  attach_deny_ssec_encrypted_object_uploads = true
 
   # S3 bucket-level Public Access Block configuration (by default now AWS has made this default as true for S3 bucket-level block public access)
   # block_public_acls       = true
@@ -215,6 +241,7 @@ module "s3_bucket" {
         kms_master_key_id = aws_kms_key.objects.arn
         sse_algorithm     = "aws:kms"
       }
+      blocked_encryption_types = ["SSE-C"]
     }
   }
 
@@ -370,4 +397,23 @@ module "s3_bucket" {
       name = "all"
     }
   ]
+
+  # metadata configuration example
+  # https://docs.aws.amazon.com/AmazonS3/latest/userguide/metadata-tables-overview.html
+  # https://docs.aws.amazon.com/AmazonS3/latest/userguide/metadata-tables-configuring.html
+  # only available in supported regions: https://docs.aws.amazon.com/AmazonS3/latest/userguide/metadata-tables-restrictions.html
+
+  # create_metadata_configuration                 = true
+  # metadata_inventory_table_configuration_state  = "ENABLED"
+  # metadata_journal_table_record_expiration      = "ENABLED"
+  # metadata_journal_table_record_expiration_days = 7
+  # metadata_encryption_configuration = {
+  #   sse_algorithm = "AES256"
+  # }
+}
+
+module "disabled" {
+  source = "../../"
+
+  create_bucket = false
 }

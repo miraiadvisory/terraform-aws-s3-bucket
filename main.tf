@@ -47,8 +47,9 @@ resource "aws_s3_bucket" "this" {
 
   region = var.region
 
-  bucket        = var.bucket
-  bucket_prefix = var.bucket_prefix
+  bucket           = var.bucket
+  bucket_prefix    = var.bucket_prefix
+  bucket_namespace = var.bucket_namespace
 
   force_destroy       = var.force_destroy
   object_lock_enabled = var.object_lock_enabled
@@ -1224,18 +1225,19 @@ resource "aws_s3_bucket_intelligent_tiering_configuration" "this" {
 }
 
 resource "aws_s3_bucket_metric" "this" {
-  for_each = { for k, v in local.metric_configuration : k => v if local.create_bucket && !var.is_directory_bucket }
+  for_each = { for k, v in local.metric_configuration : k => v if local.create_bucket }
 
   region = var.region
 
   name   = each.value.name
-  bucket = aws_s3_bucket.this[0].id
+  bucket = var.is_directory_bucket ? aws_s3_directory_bucket.this[0].bucket : aws_s3_bucket.this[0].id
 
   dynamic "filter" {
     for_each = length(try(flatten([each.value.filter]), [])) == 0 ? [] : [true]
     content {
-      prefix = try(each.value.filter.prefix, null)
-      tags   = try(each.value.filter.tags, null)
+      prefix       = try(each.value.filter.prefix, null)
+      tags         = var.is_directory_bucket ? null : try(each.value.filter.tags, null)
+      access_point = try(each.value.filter.access_point, null)
     }
   }
 }
